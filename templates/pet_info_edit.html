@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}View/edit pet{% endblock %}
+
+{% block content %}
+
+<h2>Name: {{pet.name}}</h2>
+<h3>Species: {{pet.species}}</h3>
+<h3>Age:{% if pet.age %} {{pet.age}} {% else %} Unknown{% endif %}</h3>
+{% if pet.photo_url %}
+<img src="{{pet.photo_url}}" size="200" height="200" width="200" alt="{{pet.name}}-{{pet.species}} image">
+{% else %}
+<h3>No photo available</h3>
+{% endif %}
+
+{% include 'base_form.html' %}
+
+{% endblock %}

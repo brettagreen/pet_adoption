@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} Peep our pets! {% endblock %}
+
+{% block content %}
+
+<h2>PETS</h2>
+
+{% for msg in get_flashed_messages() %}
+  <h2>{{msg}}</h2>
+{% endfor %}
+
+{% for pet in pets if pet.available %}
+<div style="float:left;">
+    <div style="float:left;margin:20px;">
+        {% if pet.photo_url %}
+        <img src="{{pet.photo_url}}" size="200" height="200" width="200" alt="{{pet.name}}-{{pet.species}} image">
+        {% else %}
+        <h3>No photo available</h3>
+        {% endif %}
+        <p>{{pet.name}} <b>is available!</b></p>
+        <a href="/{{pet.id}}">view/make changes here</a>
+    </div>
+</div>
+{% endfor %}
+
+<hr style="clear:left;">
+
+{% for pet in pets if not pet.available %}
+<div style="clear:left;">
+    <div style="float:left;margin:20px;">
+        {% if pet.photo_url %}
+        <img src="{{pet.photo_url}}" size="200" height="200" width="200" alt="{{pet.name}}-{{pet.species}} image">
+        {% else %}
+        <h3>No photo available</h3>
+        {% endif %}
+        <p>{{pet.name}} <b>is not available</b></p>
+        <a href="/{{pet.id}}">view/make changes here</a>
+    </div>
+</div>
+{% endfor %}
+
+<div style="clear:left" id="addPet">
+    <form action="/add" method="get">
+        <button type="submit">Add Pet</button><br /><br />
+    </form>
+</div>
+
+{% endblock %}
